@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd">
+<!--SpringMVC的配置文件，包含网站跳转逻辑的控制-->
+    <!--放行获取静态资源的请求到服务器中-->
+<!--    <mvc:default-servlet-handler></mvc:default-servlet-handler>-->
+    <!--SpringMVC自己处理静态资源请求-->
+<!--    <mvc:resources mapping="/js/**" location="/static/bootstrap/js"></mvc:resources>-->
+<!--    <mvc:resources mapping="/css/**" location="/static/bootstrap/css"></mvc:resources>-->
+<!--    <mvc:resources mapping="/fonts/**" location="/static/bootstrap/fonts"></mvc:resources>-->
+    <!--默认扫描路径为全部 use-default-filters="false"禁用掉默认的扫描路径   -->
+    <context:component-scan base-package="com.clutter" use-default-filters="false">
+            <!--只扫描控制器-->
+            <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+<!--配置视图解析器，方便页面返回解析-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+<!--  两个标准配置   -->
+    <!--将springmvc不能处理的请求交给tomcat-->
+    <mvc:default-servlet-handler/>
+    <!--能支持springMVC更高级的一些功能，JSR303功能校验，快捷Ajax.... -->
+    <mvc:annotation-driven/>
+</beans>
